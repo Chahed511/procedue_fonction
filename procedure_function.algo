@@ -1,0 +1,107 @@
+/*Write a procedure, called dot_product which calculates in the variable ps, 
+the dot(scalar) product of v1 and v2 (v1 and v2 are vectors of IR)*/
+
+PROCEDURE dot_product(vect1,vect2 : ARRAY_OF INTEGER, VAR ps : INTEGER)
+VAR
+    i : INTEGER;
+BEGIN
+    ps:=0; // init  ps
+    i:=0; 
+    IF (vect1.length <> vect2.length) THEN
+        Write("vectors with different sizes ");
+        END_IF
+    if (vect1.length < vect2.length) then 
+
+       WHILE (i <vect1.length ) DO
+        ps := ps+vect1[i]*vect2[i];
+        i++; 
+       END_WHILE
+    ELSE 
+       WHILE (i <vect2.length ) DO
+        ps := ps+ vect1[i]*vect2[i];
+        i++; 
+        END_WHILE
+
+    END_IF
+END
+
+/*Write an algorithm which determines, for n pairs of given vectors, 
+whether two vectors of given IR are orthogonal, by calling the procedure 
+defined in the previous question. The dot product of two orthogonal vectors is zero.*/
+
+ALGORITHM orth_vectors
+VAR
+    vect1,vect2 : ARRAY_OF INTEGER [100];
+    ps , n,m,i: INTEGER;
+BEGIN
+    // Read Size of elements of Vect1 
+    read(n);
+    // Read elements of Vect1
+     for i from 0 to n-1 step  1 do 
+         read (vect1[i]);
+    END_FOR
+    // Read Size of elements of Vect2 
+    read (m);
+    // Read elements of Vect2
+     for i from 0 to m-1 step  1 do 
+         read (vect2[i]);
+    END_FOR
+    dot_product(vect1,vect2,ps);  // call of procedure 
+    IF (ps = 0) THEN
+        Write("Vect1 and Vect2 are orthogonal");
+    ELSE
+        Write("Vect1 and Vect2 are not orthogonal");
+    END_IF
+END
+
+/*Modify the previous algorithm if you use a dot_product function instead of a procedure.*/
+// create function dot_product that return integer 
+
+FUNCTION dot_product(vect1,vect2 : ARRAY_OF INTEGER) : INTEGER
+VAR
+    i, ps : INTEGER;
+BEGIN
+    ps:=0;
+    i:=0;
+     IF (vect1.length <> vect2.length) THEN
+        Write("vectors with different sizes ");
+        END_IF
+    else if (vect1.length < vect2.length) then 
+
+       WHILE (i <vect1.length ) DO
+        ps := ps+vect1[i]*vect2[i];
+        i++; 
+       END_WHILE
+    ELSE 
+       WHILE (i <vect2.length ) DO
+        ps := ps+ vect1[i]*vect2[i];
+        i++; 
+        END_WHILE
+
+    END_IF
+    RETURN ps ;
+END
+
+ALGORITHM orth_vectors
+VAR
+    vect1,vect2 : ARRAY_OF INTEGER [100];
+    ps , n,m,i: INTEGER;
+BEGIN
+    // Read Size of elements of Vect1 
+    read(n);
+    // Read elements of Vect1
+     for i from 0 to n-1 step  1 do 
+         read (vect1[i]);
+    END_FOR
+    // Read Size of elements of Vect2 
+    read (m);
+    // Read elements of Vect2
+ for i from 0 to m-1 step  1 do 
+         read (vect2[i]);
+   ps := dot_product(vect1,vect2); // call of function 
+     IF (ps = 0) THEN
+        Write("Vect1 and Vect2 are orthogonal");
+    ELSE
+        Write("Vect1 and Vect2 are not orthogonal");
+    END_IF
+END
